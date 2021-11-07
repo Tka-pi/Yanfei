@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>【煙緋用】聖遺物最適化</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/Yanfei.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div style="margin-top: 100px;"></div>
+        <h1>聖遺物最適化アルゴリズム</h1>
+        <h3>【煙緋用】</h3>
+        <div style="margin:40px 0px 0px">杯以外はメインオプションとサブオプションを区別せず入力してください。</div>
+
+        <div class="panel panel-default" style="clear: both; margin: 20px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">花
+          </div>
+        </div><p>
+        
+        <div>
+          <table class="table table-striped" style="width: auto;">
+            <thead>
+              <td>種類</td>
+              <td>攻撃</td>
+              <td>攻撃%</td>
+              <td>会心率%</td>
+              <td>会心ダメージ%</td>
+              <td>元素熟知</td>
+            </thead>
+            <tbody id="relic1">
+              <tr>
+                <td>
+                  <select>
+                    <option value=13>楽団</option>
+                    <option value=11>火魔女</option>
+                    <option value=7>しめ縄</option>                     
+                    <option value=5>逆飛び</option>
+                    <option value=3>火渡り</option>                     
+                    <option value=2>剣闘士</option>
+                    <option value=1>その他</option>
+                  </select>
+                </td>
+                <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+                <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+                <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+                <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+                <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <button onClick="add1();" style="margin: -15px 0px;">花を1つ追加</button>
+        <button onClick="del1();" style="margin: -15px 0px;">1つ削除</button>
+
+        <div class="panel panel-default" style="clear:both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">羽根
+          </div>
+        </div><p>
+
+        <table class="table table-striped" style="width: auto;">
+          <thead>
+            <td>種類</td>
+            <td>攻撃</td>
+            <td>攻撃%</td>
+            <td>会心率%</td>
+            <td>会心ダメージ%</td>
+            <td>元素熟知</td>
+          </thead>
+          <tbody id="relic2">
+            <tr>
+              <td>
+                <select>
+                  <option value=13>楽団</option>
+                  <option value=11>火魔女</option>
+                  <option value=7>しめ縄</option>                   
+                  <option value=5>逆飛び</option>
+                  <option value=3>火渡り</option>                   
+                  <option value=2>剣闘士</option>
+                  <option value=1>その他</option>
+                </select>
+              </td>
+              <td><input inputmode="decimal" pattern="\d*"  value="311" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button onClick="add2();" style="margin: -15px 0px;">羽根を1つ追加</button>
+        <button onClick="del2();" style="margin: -15px 0px;">1つ削除</button>
+
+
+        <div class="panel panel-default" style="clear: both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">時計
+          </div>
+        </div><p>
+
+        <table class="table table-striped" style="width: auto;">
+          <thead>
+            <td>種類</td>
+            <td>攻撃</td>
+            <td>攻撃%</td>
+            <td>会心率%</td>
+            <td>会心ダメージ%</td>
+            <td>元素熟知</td>
+          </thead>
+          <tbody id="relic3">
+            <tr>
+              <td>
+                <select>
+                  <option value=13>楽団</option>
+                  <option value=11>火魔女</option>
+                  <option value=7>しめ縄</option>                   
+                  <option value=4>逆飛び</option>
+                  <option value=3>火渡り</option>                   
+                  <option value=2>剣闘士</option>
+                  <option value=1>その他</option>
+                </select>
+              </td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="46.6" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button onClick="add3();" style="margin: -15px 0px;">時計を1つ追加</button>
+        <button onClick="del3();" style="margin: -15px 0px;">1つ削除</button>
+
+
+        <div class="panel panel-default" style="clear: both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">杯：炎バフ46.6%
+          </div>
+        </div><p>
+
+        <table class="table table-striped" style="width: auto;">
+          <thead>
+            <td>種類</td>
+            <td>攻撃</td>
+            <td>攻撃%</td>
+            <td>会心率%</td>
+            <td>会心ダメージ%</td>
+            <td>元素熟知</td>
+          </thead>
+          <tbody id="relic4">
+            <tr>
+              <td>
+                <select>
+                  <option value=13>楽団</option>
+                  <option value=11>火魔女</option>
+                  <option value=7>しめ縄</option>                   
+                  <option value=5>逆飛び</option>
+                  <option value=3>火渡り</option>                   
+                  <option value=2>剣闘士</option>
+                  <option value=1>その他</option>
+                </select>
+              </td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button onClick="add4();" style="margin: -15px 0px;">杯を1つ追加</button>
+        <button onClick="del4();" style="margin: -15px 0px;">1つ削除</button>
+
+        <div class="panel panel-default" style="clear: both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">冠
+          </div>
+        </div><p>
+
+        <table class="table table-striped" style="width: auto; overflow: auto;">
+          <thead>
+            <td>種類</td>
+            <td>攻撃</td>
+            <td>攻撃%</td>
+            <td>会心率%</td>
+            <td>会心ダメージ%</td>
+            <td>元素熟知</td>
+          </thead>
+          <tbody id="relic5">
+            <tr>
+              <td>
+                <select>
+                  <option value=13>楽団</option>
+                  <option value=11>火魔女</option>
+                  <option value=7>しめ縄</option>                   
+                  <option value=5>逆飛び</option>
+                  <option value=3>火渡り</option>                   
+                  <option value=2>剣闘士</option>
+                  <option value=1>その他</option>
+                </select>
+              </td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="31.1" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+              <td><input inputmode="decimal" pattern="\d*"  value="0" style="width: 40px;"></input></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button onClick="add5();" style="margin: -15px 0px;">冠を1つ追加</button>
+        <button onClick="del5();" style="margin: -15px 0px;">1つ削除</button>
+
+
+
+
+
+
+
+
+        <div class="panel panel-default" style="clear: both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">基本設定</div>
+        </div>
+        聖遺物タイプに注意してください。
+        <div style="margin: 20px 0px 5px;">
+          命ノ星座
+          <select id="stella">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option selected>6</option>
+          </select> 
+        </div>
+
+        <div style="margin: 0px 10px 10px 0px;">
+          天賦レベル
+          <select id="talent1">
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option selected>9</option>
+            <option>10</option>
+            <option>11</option>
+          </select>/
+          <select id="talent2">
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option selected>12</option>
+            <option>13</option>
+          </select>/
+          <select id="talent3">
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option selected>12</option>
+            <option>13</option>
+          </select>
+        </div>
+
+        <div style="margin:0px 10px 10px 0px;">
+          <select id="weapon" style="margin-right: 10px;">
+            <option value="genten">四風原典</option>
+            <option value="tenku">天空の巻</option>
+            <option value="rurou" selected>流浪楽章</option>
+            <option value="dodoko">ドドコの物語</option>
+            <option value="tanaka">匣中日月</option>
+            <option value="sairei">祭礼の断片</option>
+          </select>
+
+          精錬ランク
+          <select id="weapon_rank">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          聖遺物タイプ：
+          <select id="relic_type">
+            <option value="1">楽団・火魔女等</option>
+            <option value="2">しめ縄4</option>
+            <option value="3">逆飛び4</option>
+            <option value="4">火渡り4</option>
+          </select>
+        </div>
+
+
+        <div class="panel panel-default" style="clear: both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">攻撃パターン設定</div>
+        </div>
+        煙緋特有の、重撃に至るまで攻撃パターンとその割合を決定します。これにより、行秋と組んで水付与を1段挟むなどの挙動を再現します。
+        <div style="margin-top: 20px;">
+          【非爆発中】
+          <table class="table table-striped" style="width: auto; overflow: auto;">
+            <tr>
+              <td><input type="radio" name="non_burst" value="1"></td>
+              <td>通常1段</td>
+              <td>通常2段</td>
+              <td>通常3段</td>
+              <td>重撃</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input type="radio" name="non_burst" value="2" checked></td>
+              <td>通常1段</td>
+              <td>通常2段</td>
+              <td>通常3段</td>
+              <td>通常1段</td>
+              <td>重撃</td>
+            </tr>
+          </table>
+        </div>
+        <div style="margin-top: 20px;">
+          【爆発中】
+          <table class="table table-striped" style="width: auto; overflow: auto;">
+            <tr>
+              <td><input type="radio" name="burst" value="1"></td>
+              <td>通常1段</td>
+              <td>重撃</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input type="radio" name="burst" value="2" checked></td>
+              <td>通常1段</td>
+              <td>通常2段</td>
+              <td>重撃</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input type="radio" name="burst" value="3"></td>
+              <td>通常1段</td>
+              <td>通常2段</td>
+              <td>通常3段</td>
+              <td>重撃</td>
+            </tr>
+          </table>
+        </div>
+        <div style="margin-top: 20px;">
+          【スキル使用】
+          <table class="table table-striped" style="width: auto; overflow: auto;" >
+            <tr>
+              <td><input type="radio" name="skill" value="1" checked></td>
+              <td>スキル</td>
+              <td>重撃</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input type="radio" name="skill" value="2"></td>
+              <td>スキル</td>
+              <td>通常1段</td>
+              <td>重撃</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input type="radio" name="skill" value="3"></td>
+              <td>通常1段</td>
+              <td>スキル</td>
+              <td>通常1段</td>
+              <td>重撃</td>
+            </tr>
+          </table>
+        </div>
+        <div style="margin:30px 0px 10px;">
+          煙緋の平均登場時間
+          <input inputmode="decimal" pattern="\d*"  id="time" value="12" style="width: 40px;"/>秒
+        </div>
+        <div style="margin:0px 0px 10px;">
+          重撃10回あたりのスキル回数
+          <input inputmode="decimal" pattern="\d*"  id="skill_frequency" value="2.2" style="width: 40px;"/>回
+        </div>
+        <div>
+          元素爆発の時間的割合
+          <input id="burst_time" type="range" min="0" max="1" style="width: 30%;" step="0.01" value="0.25">
+        </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="panel panel-default" style="clear: both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">不確定要素仮定</div>
+        </div>
+        他キャラから受けるバフや、確率的要素を考慮する部分です。
+        たとえば、炎共鳴を組むときは攻撃+25%としてください。
+        武器や聖遺物の効果は自動で考慮されるので、ここで設定する必要はありません。
+        ただし、流浪楽章のバフのみ考慮していないためご自身で設定してください。
+        <div style="margin-top: 30px;">
+          <div style="margin-bottom:10px ;">
+            想定する元素反応
+            <select id="vape_or_melt">
+              <option value=1.5>蒸発</option>
+              <option value=2>溶解</option>
+            </select> 
+          </div>
+
+          <div style="margin-top: 10px;">
+            通常攻撃の蒸発/溶解確率
+            <input id="possibility_normal" type="range" min="0" max="1" style="width: 30%;" step="0.01" value="0.33">
+          </div>
+          <div style="margin-top: 20px;">
+            通常攻撃の蒸発/溶解確率
+            <input id="possibility_heavy" type="range" min="0" max="1" style="width: 30%;" step="0.01" value="0.90">
+          </div>
+
+        </div>
+        <div style="margin-bottom: 10px; margin-top: 30px;">
+          各種バフ加算
+        </div>
+        <div style="margin-bottom: 10px;">
+          攻撃力+
+          <input inputmode="decimal" pattern="\d*"  id="u_ATKrate" value="0" style="width: 40px;"/>%
+        </div>
+        <div style="margin-bottom: 10px;">
+          会心率+
+          <input inputmode="decimal" pattern="\d*"  id="u_CRIT" value="0" style="width: 40px;"/>%
+        </div>
+        <div style="margin-bottom: 5px;">
+          元素熟知+
+          <input inputmode="decimal" pattern="\d*"  id="u_EM" value="0" style="width: 40px;"/>
+        </div>
+        <div style="margin-bottom: 5px;">
+          炎元素ダメージ+
+          <input inputmode="decimal" pattern="\d*"  id="u_pyro" value="0" style="width: 40px;"/>%
+        </div>
+        <div style="margin-bottom: 10px;">
+          通常攻撃・重撃ダメージ+
+          <input inputmode="decimal" pattern="\d*"  id="u_normal_and_heavy" value="0" style="width: 40px;"/>%
+        </div>
+
+
+        <button onClick="start();" style="margin: 20px 0px;">最適化</button> 
+
+        <div class="panel panel-default" style="clear: both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">結果
+          </div>
+        </div> 
+            
+        <div>
+          <table class="table table-striped" style="width: auto;">
+            <thead>
+              <td></td>
+              <td>種類</td>
+              <td>攻撃</td>
+              <td>攻撃%</td>
+              <td>会心率%</td>
+              <td>会心ダメージ%</td>
+              <td>元素熟知</td>
+            </thead>
+            <tbody id="result">
+              <tr>
+                <td>花</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>羽根</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>時計</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>杯</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>冠</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel panel-default" style="clear: both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
+          <div class="panel-body" style="padding: 5px;">キャラクターラインナップ
+          </div>
+        </div> 
+
+
+
+        <div>
+          <a href="https://tka-pi.github.io/hutao/"><img src="icon/HuTao_icon.png" alt="胡桃" style="width: 80px; margin-right: 8px;"></a><a href="https://tka-pi.github.io/Yanfei/"><img src="icon/Yanfei_icon.png" alt="煙緋" style="width: 80px;"></a>
+        </div>
+        <div style="margin:40px 0px 500px;">製作者：<a href="https://www.hoyolab.com/accountCenter/postList?id=136116680">たかぴい@HoYoLAB.com</a>　
+          <div>コンセプトや仕様については記事でも紹介しています。感想やフィードバックはそちらにお寄せください。</div>
+        </div>
+      </div>
+
+    <div style="margin: 0px 0px 50px;"></div>
+
+    
+  </body>
+</html>

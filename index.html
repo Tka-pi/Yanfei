@@ -12,7 +12,7 @@
   <body>
     <div class="container">
       <div style="margin-top: 100px;"></div>
-        <h1>聖遺物最適化アルゴリズム</h1>
+        <h1>聖遺物最適化ツール</h1>
         <h3>【煙緋用】</h3>
         <div style="margin:40px 0px 0px">杯以外はメインオプションとサブオプションを区別せず入力してください。</div>
 
@@ -275,6 +275,7 @@
           <select id="weapon" style="margin-right: 10px;">
             <option value="genten">四風原典</option>
             <option value="tenku">天空の巻</option>
+            <option value="ukiyo">浮世の錠</option>
             <option value="rurou" selected>流浪楽章</option>
             <option value="dodoko">ドドコの物語</option>
             <option value="tanaka">匣中日月</option>
@@ -422,7 +423,7 @@
         他キャラから受けるバフや、確率的要素を考慮する部分です。
         たとえば、炎共鳴を組むときは攻撃+25%としてください。
         武器や聖遺物の効果は自動で考慮されるので、ここで設定する必要はありません。
-        ただし、流浪楽章のバフのみ考慮していないためご自身で設定してください。
+        ただし、流浪楽章のランダムバフと浮世の錠の「金璋君臨」バフは考慮していないため、ご自身で設定してください。
         <div style="margin-top: 30px;">
           <div style="margin-bottom:10px ;">
             想定する元素反応
@@ -437,7 +438,7 @@
             <input id="possibility_normal" type="range" min="0" max="1" style="width: 30%;" step="0.01" value="0.33">
           </div>
           <div style="margin-top: 20px;">
-            通常攻撃の蒸発/溶解確率
+            重撃の蒸発/溶解確率
             <input id="possibility_heavy" type="range" min="0" max="1" style="width: 30%;" step="0.01" value="0.90">
           </div>
 
@@ -468,6 +469,7 @@
 
 
         <button onClick="start();" style="margin: 20px 0px;">最適化</button> 
+        <div>最適化は、キャラ武器ともにLv.90を想定します。</div>
 
         <div class="panel panel-default" style="clear: both; margin: 60px 0px 10px; background: rgb(240, 240, 240);">
           <div class="panel-body" style="padding: 5px;">結果

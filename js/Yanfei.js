@@ -190,6 +190,12 @@ function eval(){
     var heavy_non_burst=0;
     var heavy_burst=0;
     var heavy_skill=0;
+    var total_CRIT=(5+u_CRIT+CRIT)*0.01;
+    var total_CRITd=(50+u_CRIT+CRITd)*0.01;
+
+    if(total_CRIT>=1){
+        total_CRIT=1;
+    }
 
     if (pattern_non_burst==1){
         non_burstATK = normal1+normal2+normal3;
@@ -240,14 +246,48 @@ function eval(){
         return a*(1-p)+a*p*elemental_bonus;
     }
 
-    var model_1heavy=   (1-skill_frequency)*(1-burst_time)*(prj(possibility_normal,non_burstATK)*tanaka_normal*(1+simenawa+u_normal_and_heavy)+prj(possibility_heavy,heavy_non_burst)*(1+heavy_bonus)*(1+simenawa+u_normal_and_heavy))
-                        +(1-skill_frequency)*burst_time*(prj(possibility_normal,burstATK)*tanaka_normal+prj(possibility_heavy,heavy_burst)*(1+heavy_bonus+burst_bonus)*(1+simenawa+u_normal_and_heavy)+prj(possibility_normal,burst_bom)/4*tanaka)
-                        +skill_frequency*(prj(possibility_normal,skillATK)*tanaka_normal+prj(possibility_heavy,heavy_skill)*(1+heavy_bonus)*(1+simenawa+u_normal_and_heavy)+prj(possibility_heavy,skill)*tanaka);
+    function B(p){
+        return 1-p+p*elemental_bonus;
+    }
 
-    var total = totalATK*((1-(5+CRIT+u_CRIT)*0.01)*model_1heavy+(5+CRIT+u_CRIT)*(1+(50+CRITd+u_CRITd)*0.01)*(model_1heavy+80*(1+heavy_bonus+burst_bonus*burst_time)*(1+simenawa+u_normal_and_heavy)));
-    return total;
+
+    var model_1normal = (1-skill_frequency)*(1-burst_time)*non_burstATK*tanaka_normal*(1+simenawa+u_normal_and_heavy)*B(possibility_normal)
+                         +(1-skill_frequency)*burst_time*burstATK*tanaka_normal*(1+simenawa+u_normal_and_heavy)*B(possibility_normal)
+                         +skill_frequency*(skillATK*B(possibility_normal)*tanaka_normal+skill*B(possibility_heavy)*tanaka);
+
+    var model_1heavy= ((1-skill_frequency)*(1-burst_time)*heavy_non_burst*(1+heavy_bonus)
+                        +(1-skill_frequency)*burst_time*heavy_burst*(1+heavy_bonus+burst_bonus)
+                        +skill_frequency*heavy_skill*(1+heavy_bonus))*B(possibility_heavy)*(1+simenawa+u_normal_and_heavy);
+
+
+    function model_CRIT (r){
+        return 1+r*total_CRITd;
+    }
+
+
+    function model_total (CRIT_stella){
+       var xxx= model_CRIT(total_CRIT)*model_1normal
+                    +model_CRIT((total_CRIT+CRIT_stella))*model_1heavy
+                    +(total_CRIT+CRIT_stella)*model_CRIT(total_CRIT+CRIT_stella)*80*(1+simenawa+u_normal_and_heavy)*(1+heavy_bonus+burst_bonus*burst_time);
+        
+        return xxx*totalATK*(1+(u_pyro+witch_pyro)*0.01);
+    }
+    
+
+    
+    if(stella>=2){
+        var cr=0.2;
+        if((total_CRIT+cr)>=1){
+            cr=1-total_CRIT;
+        }
+        return (model_total(0)+model_total(cr))*0.5;
+    }else{
+        return model_total(0);
+    }
+
+    
+
 }
-
 
 
 
@@ -282,9 +322,7 @@ u_EM                =Number($("#u_EM").val());
 u_pyro              =Number($("#u_pyro").val());
 u_normal_and_heavy  =Number($("#u_normal_and_heavy").val())*0.01;
 
-if(stella>=2){
-    u_CRIT+=10;
-}
+
 
 
 
@@ -299,10 +337,11 @@ burst_bonus=0.44+0.026*(talent3-6);
 
 
 baseATK=240;
-u_pyro+=24;
+u_pyro+=24+46.6;
 dodoko=0;
 tanaka=1;
 tanaka_normal=1;
+
 
 if(stella==6){
     u_pyro+=20;
@@ -322,6 +361,10 @@ if($("#weapon").val()=="tenku"){
     u_ATKrate+=33.1;
     baseATK+=674;
     u_pyro+=9+3*weapon_rank;
+}
+if($("#weapon").val()=="ukiyo"){
+    u_ATKrate+=49.6;
+    baseATK+=608;
 }
 if($("#weapon").val()=="rurou"){
     u_CRITd+=55.1;
@@ -372,16 +415,17 @@ for (var r1=0 ; r1<C1 ; r1++){
                     var ev=0;
 
                     simenawa=0;
+                    gakudan=0;
                     witch=0;
                     witch_pyro=0;
-                    heavy_bonus=dodoko;
+                    heavy_bonus=dodoko+gakudan;
 
 
                     if(relic_type==1){
                         if(series%(13**2)==0){
                             EM+=80;
                         }if(series%(13**4)==0){
-                            heavy_bonus+=0.35;
+                            gakudan=0.35;
                         }if(series%(11**2)==0){
                             witch_pyro=15;
                         }if(series%(11**4)==0){
@@ -390,21 +434,21 @@ for (var r1=0 ; r1<C1 ; r1++){
                         }if(series%(7**2)==0||series%(2**2)==0){
                             ATKrate+=18;
                         }
-                        ev=eval()*(1+(u_pyro+witch_pyro)*0.01);
-                    }
-                    if(relic_type==2){
-                        if(series%(7**4)==0){
-                            ATKrate+=18;
-                            simenawa=0.5;
-                            ev=eval()*(1+(u_pyro)*0.01);
-                        }
-                    }
-                    if(relic_type==3){
-                        ev=eval()*(1+(u_pyro)*0.01);
-                    }
-                    if(relic_type==4){
                         ev=eval();
                     }
+                    if(relic_type==2&&series%(7**4)==0){
+                        ATKrate+=18;
+                        simenawa=0.5;
+                        ev=eval();
+                    }
+                    if(relic_type==3&&series%(5**4)==0){                        
+                        ev=eval();
+                    }
+                    if(relic_type==4&&series%(3**4)==0){
+                        ev=eval();
+                    }
+
+                    console.log(relic_type);
 
 
                     
@@ -442,10 +486,10 @@ if(max==0){
     if(relic_type==2){
     alert("しめ縄4セットがありません");
     }
-    if(relic_type==3){
+    if(relic_type==4){
     alert("火渡り4セットがありません");
     }
-    if(relic_type==4){
+    if(relic_type==3){
     alert("逆飛び4セットがありません");
     }
 }

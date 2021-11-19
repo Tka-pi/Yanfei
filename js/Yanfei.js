@@ -191,7 +191,7 @@ function eval(){
     var heavy_burst=0;
     var heavy_skill=0;
     var total_CRIT=(5+u_CRIT+CRIT)*0.01;
-    var total_CRITd=(50+u_CRIT+CRITd)*0.01;
+    var total_CRITd=(50+u_CRITd+CRITd)*0.01;
 
     if(total_CRIT>=1){
         total_CRIT=1;

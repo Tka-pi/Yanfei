@@ -397,6 +397,8 @@ if($("#weapon").val()=="sairei"){
 var index=0;
 
 var alert_label=0;
+var alert_nan=0;
+var alert_minus=0;
 
 
 for (var r1=0 ; r1<C1 ; r1++){
@@ -456,11 +458,11 @@ for (var r1=0 ; r1<C1 ; r1++){
                     EV_index[index] = [r1,r2,r3,r4,r5];
                     EV_vector[index] = ev;
                     if(isNaN(ev)){
-                        alert("数値を入力してください");
+                        alert_nan=1;
                         alert_label=1;
                     }
                     if(ev<0){
-                        alert("数値が正しい範囲を超えています");
+                        alert_minus=1;
                         alert_label=1;
                     }
                     index++;
@@ -468,6 +470,12 @@ for (var r1=0 ; r1<C1 ; r1++){
             }
         }
     }
+}
+
+if(alert_nan==1){
+    alert("数値を入力してください");
+}if(alert_minus==1){
+    alert("期待値がマイナスになっています");
 }
 
 

@@ -242,22 +242,18 @@ function eval(){
         heavy_skill=heavy3;
     }
 
-    function prj(p,a){
-        return a*(1-p)+a*p*elemental_bonus;
-    }
-
     function B(p){
         return 1-p+p*elemental_bonus;
     }
 
 
-    var model_1normal = (1-skill_frequency)*(1-burst_time)*non_burstATK*tanaka_normal*(1+simenawa+u_normal_and_heavy)*B(possibility_normal)
-                         +(1-skill_frequency)*burst_time*burstATK*tanaka_normal*(1+simenawa+u_normal_and_heavy)*B(possibility_normal)
-                         +skill_frequency*(skillATK*B(possibility_normal)*tanaka_normal+skill*B(possibility_heavy)*tanaka);
+    var model_1normal = (1-skill_frequency)*(1-burst_time)*non_burstATK*(1+simenawa+u_normal_and_heavy+tanaka_normal)*B(possibility_normal)
+                         +(1-skill_frequency)*burst_time*burstATK*(1+tanaka_normal+simenawa+u_normal_and_heavy)*B(possibility_normal)
+                         +skill_frequency*(skillATK*B(possibility_normal)*(1+tanaka_normal+simenawa+u_normal_and_heavy)+skill*B(possibility_heavy)*tanaka);
 
-    var model_1heavy= ((1-skill_frequency)*(1-burst_time)*heavy_non_burst*(1+heavy_bonus)
-                        +(1-skill_frequency)*burst_time*heavy_burst*(1+heavy_bonus+burst_bonus)
-                        +skill_frequency*heavy_skill*(1+heavy_bonus))*B(possibility_heavy)*(1+simenawa+u_normal_and_heavy);
+    var model_1heavy= ((1-skill_frequency)*(1-burst_time)*heavy_non_burst*(1+heavy_bonus+u_normal_and_heavy+simenawa)
+                        +(1-skill_frequency)*burst_time*heavy_burst*(1+heavy_bonus+burst_bonus+u_normal_and_heavy+simenawa)
+                        +skill_frequency*heavy_skill*(1+heavy_bonus+u_normal_and_heavy+simenawa+burst_bonus*burst_time))*B(possibility_heavy);
 
 
     function model_CRIT (r){
@@ -268,7 +264,7 @@ function eval(){
     function model_total (CRIT_stella){
        var xxx= model_CRIT(total_CRIT)*model_1normal
                     +model_CRIT((total_CRIT+CRIT_stella))*model_1heavy
-                    +(total_CRIT+CRIT_stella)*model_CRIT(total_CRIT+CRIT_stella)*80*(1+simenawa+u_normal_and_heavy)*(1+heavy_bonus+burst_bonus*burst_time);
+                    +(total_CRIT+CRIT_stella)*model_CRIT(total_CRIT+CRIT_stella)*80*(1+simenawa+u_normal_and_heavy+heavy_bonus+burst_bonus*burst_time);
         
         return xxx*totalATK*(1+(u_pyro+witch_pyro)*0.01);
     }
@@ -339,8 +335,8 @@ burst_bonus=0.44+0.026*(talent3-6);
 baseATK=240;
 u_pyro+=24+46.6;
 dodoko=0;
-tanaka=1;
-tanaka_normal=1;
+tanaka=0;
+tanaka_normal=0;
 
 
 if(stella==6){

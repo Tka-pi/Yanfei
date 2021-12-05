@@ -437,12 +437,15 @@ for (var r1=0 ; r1<C1 ; r1++){
                     if(relic_type==2&&series%(7**4)==0){
                         ATKrate+=18;
                         simenawa=0.5;
+                        heavy_bonus=dodoko+gakudan;
                         ev=eval();
                     }
-                    if(relic_type==3&&series%(5**4)==0){                        
+                    if(relic_type==3&&series%(5**4)==0){      
+                        heavy_bonus=dodoko+gakudan;                  
                         ev=eval();
                     }
                     if(relic_type==4&&series%(3**4)==0){
+                        heavy_bonus=dodoko+gakudan;
                         ev=eval();
                     }
 

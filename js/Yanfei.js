@@ -416,7 +416,6 @@ for (var r1=0 ; r1<C1 ; r1++){
                     gakudan=0;
                     witch=0;
                     witch_pyro=0;
-                    heavy_bonus=dodoko+gakudan;
 
 
                     if(relic_type==1){
@@ -432,6 +431,7 @@ for (var r1=0 ; r1<C1 ; r1++){
                         }if(series%(7**2)==0||series%(2**2)==0){
                             ATKrate+=18;
                         }
+                        heavy_bonus=dodoko+gakudan;
                         ev=eval();
                     }
                     if(relic_type==2&&series%(7**4)==0){

@@ -246,14 +246,18 @@ function eval(){
         return 1-p+p*elemental_bonus;
     }
 
+    var buff_normal=1+simenawa+u_normal_and_heavy+tanaka_normal+(u_pyro+witch_pyro+pyro)*0.01;
+    var buff_heavy=1+simenawa+u_normal_and_heavy+(pyro+u_pyro+witch_pyro)*0.01+gakudan+dodoko;
+    var buff_skill=1+tanaka+(u_pyro+witch_pyro+pyro)*0.01;
+    var buff_burst=1+tanaka+(u_pyro+witch_pyro+pyro)*0.01;
 
-    var model_1normal = (1-skill_frequency)*(1-burst_time)*non_burstATK*(1+simenawa+u_normal_and_heavy+tanaka_normal)*B(possibility_normal)
-                         +(1-skill_frequency)*burst_time*burstATK*(1+tanaka_normal+simenawa+u_normal_and_heavy)*B(possibility_normal)
-                         +skill_frequency*(skillATK*B(possibility_normal)*(1+tanaka_normal+simenawa+u_normal_and_heavy)+skill*B(possibility_heavy)*tanaka);
 
-    var model_1heavy= ((1-skill_frequency)*(1-burst_time)*heavy_non_burst*(1+heavy_bonus+u_normal_and_heavy+simenawa)
-                        +(1-skill_frequency)*burst_time*heavy_burst*(1+heavy_bonus+burst_bonus+u_normal_and_heavy+simenawa)
-                        +skill_frequency*heavy_skill*(1+heavy_bonus+u_normal_and_heavy+simenawa+burst_bonus*burst_time))*B(possibility_heavy);
+    var model_1normal = ((1-skill_frequency)*(1-burst_time)*non_burstATK+(1-skill_frequency)*burst_time*burstATK
+                         +skill_frequency*skillATK)*B(possibility_normal)*buff_normal+skill_frequency*skill*B(possibility_heavy)*buff_skill;
+
+    var model_1heavy= ((1-skill_frequency)*(1-burst_time)*heavy_non_burst*buff_heavy
+                        +(1-skill_frequency)*burst_time*heavy_burst*(buff_heavy+burst_bonus)
+                        +skill_frequency*heavy_skill*(buff_heavy+burst_bonus*burst_time))*B(possibility_heavy);
 
 
     function model_CRIT (r){
@@ -264,9 +268,9 @@ function eval(){
     function model_total (CRIT_stella){
        var xxx= model_CRIT(total_CRIT)*model_1normal
                     +model_CRIT((total_CRIT+CRIT_stella))*model_1heavy
-                    +(total_CRIT+CRIT_stella)*model_CRIT(total_CRIT+CRIT_stella)*80*(1+simenawa+u_normal_and_heavy+heavy_bonus+burst_bonus*burst_time);
+                    +(total_CRIT+CRIT_stella)*model_CRIT(total_CRIT+CRIT_stella)*80*(buff_heavy+burst_bonus*burst_time);
         
-        return xxx*totalATK*(1+(u_pyro+witch_pyro)*0.01);
+        return xxx*totalATK;
     }
     
 
@@ -409,6 +413,7 @@ for (var r1=0 ; r1<C1 ; r1++){
                     var CRIT     =relic1_matrix[r1][3]+relic2_matrix[r2][3]+relic3_matrix[r3][3]+relic4_matrix[r4][3]+relic5_matrix[r5][3];
                     var CRITd    =relic1_matrix[r1][4]+relic2_matrix[r2][4]+relic3_matrix[r3][4]+relic4_matrix[r4][4]+relic5_matrix[r5][4];
                     var EM       =relic1_matrix[r1][5]+relic2_matrix[r2][5]+relic3_matrix[r3][5]+relic4_matrix[r4][5]+relic5_matrix[r5][5];
+                    var pyro   =relic4_matrix[r4][6];
 
                     var ev=0;
 
@@ -431,21 +436,17 @@ for (var r1=0 ; r1<C1 ; r1++){
                         }if(series%(7**2)==0||series%(2**2)==0){
                             ATKrate+=18;
                         }
-                        heavy_bonus=dodoko+gakudan;
                         ev=eval();
                     }
                     if(relic_type==2&&series%(7**4)==0){
                         ATKrate+=18;
                         simenawa=0.5;
-                        heavy_bonus=dodoko+gakudan;
                         ev=eval();
                     }
-                    if(relic_type==3&&series%(5**4)==0){      
-                        heavy_bonus=dodoko+gakudan;                  
+                    if(relic_type==3&&series%(5**4)==0){                      
                         ev=eval();
                     }
                     if(relic_type==4&&series%(3**4)==0){
-                        heavy_bonus=dodoko+gakudan;
                         ev=eval();
                     }
 
@@ -550,6 +551,12 @@ if(alert_label==0){
     result.rows[2].cells[s].innerHTML=relic3_matrix[R3][s-1];
     result.rows[3].cells[s].innerHTML=relic4_matrix[R4][s-1];
     result.rows[4].cells[s].innerHTML=relic5_matrix[R5][s-1];
+    }
+
+    if(relic4_matrix[R4][6]>1){
+        result.rows[3].cells[0].innerHTML="杯(炎)";
+    }else{
+        result.rows[3].cells[0].innerHTML="杯";
     }
 }
 

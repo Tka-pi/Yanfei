@@ -33,7 +33,7 @@ function add4(){
     var relic = document.getElementById("relic4");
     var row_num = relic.rows.length;
     var newrow  = relic.insertRow(row_num);
-    for(var j=0; j<=5; j++){
+    for(var j=0; j<=6; j++){
         var cellj = newrow.insertCell(j);
         cellj.innerHTML = relic.rows[row_num-1].cells[j].innerHTML;
     }
